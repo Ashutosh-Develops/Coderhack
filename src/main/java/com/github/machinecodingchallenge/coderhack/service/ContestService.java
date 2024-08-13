@@ -29,15 +29,13 @@ public class ContestService {
 
   public RegisteredUser registerUser(UserInput userInput) throws ContestProcessingCouldNotProceedException, InvalidInputException {
 
-    // Validate input . If Invalid then it should throw excpetion that corresponds to category 4 status code
-
-
+   
     if(userInput.getUserId()==null||userInput.getUserId().isEmpty()){
       throw new InvalidInputException("Invalid user id "+userInput.getUserId());
 
     }
 
-    // returns 400 error code
+   
     if(userInput.getUsername()==null||userInput.getUsername().isEmpty()){
       throw new InvalidInputException("Invalid username "+userInput.getUsername());
 
@@ -75,7 +73,7 @@ public class ContestService {
     contest.registerUser(registeredUser);
     
 
-    // If new contest was created then insert it to the DB , else we need to update a document using save
+    
     Contest updatedContest;
     if(contests.isEmpty()){
       updatedContest=iContestRepository.insert(contest);
@@ -98,10 +96,10 @@ public class ContestService {
 
        List<Contest> contests = iContestRepository.findAll();
 
-       // 404
+      
        if(contests.isEmpty()){
          throw new ContestResourcesNotFoundException("No contest is being held currently");
-       //  throw new RuntimeException("No contest is being held currently");
+      
        }
 
        Contest contest=contests.get(0);
@@ -117,10 +115,10 @@ public class ContestService {
 
   public RegisteredUser getRegisteredUser(String userId) throws ContestResourcesNotFoundException, InvalidInputException {
 
-    // 400
+   
     if(userId==null||userId.isEmpty()){
       throw new InvalidInputException("Invalid userId with id "+userId);
-      //throw new RuntimeException("Invalid userId with id "+userId);
+     
     }
 
     // Retreive the contest and fetch the registered users
@@ -129,17 +127,17 @@ public class ContestService {
     // 404
     if(contests.isEmpty()){
       throw new ContestResourcesNotFoundException("No contest is being held currently");
-     // throw new RuntimeException("No contest is being held currently");
+    
     }
 
     Contest contest=contests.get(0);
 
     Optional<RegisteredUser> registeredUserOptional=contest.getUserById(userId);
 
-    // 404
+    
     if(registeredUserOptional.isEmpty()){
       throw new ContestResourcesNotFoundException("User with id "+userId+" is not registered in the contest");
-     // throw new RuntimeException("User with id "+userId+" is not registered in the contest");
+    
     }
 
 
@@ -153,7 +151,7 @@ public class ContestService {
 
     if(userId==null||userId.isEmpty()){
       throw new InvalidInputException("Invalid user with id "+userId);
-      //throw new RuntimeException("Invalid user with id "+userId);
+     
     }
 
     int newScore=0;
@@ -162,13 +160,13 @@ public class ContestService {
     }catch(Exception e){
 
       throw new InvalidInputException("Invalid score with value "+score);
-      // throw new NumberFormatException("Invalid score with value "+score);
+    
     }
 
 
     if(newScore<=0||newScore>100){
       throw new ContestProcessingCouldNotProceedException(newScore+" is out of range ,score range should be between 1 and 100");
-     // throw new RuntimeException(newScore+" is out of range ,score range should be between 1 and 100");
+    
     }
 
     // Retreive the contest and fetch the registered users
@@ -177,7 +175,7 @@ public class ContestService {
 
     if(contests.isEmpty()){
       throw new ContestProcessingCouldNotProceedException("No contest is being held currently");
-     // throw new RuntimeException("No contest is being held currently");
+    
     }
 
     Contest contest=contests.get(0);
@@ -187,7 +185,7 @@ public class ContestService {
 
     if(registeredUserOptional.isEmpty()){
       throw new ContestProcessingCouldNotProceedException("User with id "+userId+" is not registered in the contest");
-     // throw new RuntimeException("User with id "+userId+" is not registered in the contest");
+    
     }
 
 
@@ -209,10 +207,10 @@ public class ContestService {
 
   public void deRegisterUser(String userId) throws InvalidInputException, ContestProcessingCouldNotProceedException {
 
-    // 400
+   
     if(userId==null || userId.isEmpty()){
       throw new InvalidInputException("Invalid user with id "+userId);
-     // throw new RuntimeException("Invalid user with id "+userId);
+     
     }
 
     List<Contest> contests = iContestRepository.findAll();
@@ -220,7 +218,7 @@ public class ContestService {
 
     if(contests.isEmpty()){
       throw new ContestProcessingCouldNotProceedException("No contest is being held currently");
-     // throw new RuntimeException("No contest is being held currently");
+    
     }
 
     Contest contest=contests.get(0);
@@ -230,7 +228,7 @@ public class ContestService {
 
     if(registeredUserOptional.isEmpty()){
       throw new ContestProcessingCouldNotProceedException("user with id "+userId+" has not registered the contest");
-     // throw new RuntimeException("user with id "+userId+" has not registered the contest");
+    
     }
 
     contest.deRegisterUser(registeredUserOptional.get());
@@ -249,7 +247,7 @@ public class ContestService {
     // 404
     if(contests.isEmpty()){
       throw new ContestResourcesNotFoundException("No contest is being held currently");
-    //  throw new RuntimeException("No contest is being held currently");
+   
     }
 
     Contest contest=contests.get(0);

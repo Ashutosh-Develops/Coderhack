@@ -60,14 +60,16 @@ public class RegisteredUser {
 
     this.score = score;
 
-    if(score>=1&score<30){
-       addBadge(Badge.CODE_NINJA);
-    }else if(score>=30&score<60){
+    if(score>=60&&score<=100){
       addBadge(Badge.CODE_CHAMP);
-    }else{
       addBadge(Badge.CODE_MASTER);
+      addBadge(Badge.CODE_NINJA);
+    }else if(score<60&&score>=30){
+      addBadge(Badge.CODE_CHAMP);
+      addBadge(Badge.CODE_NINJA);
+    }else{
+      addBadge(Badge.CODE_NINJA);
     }
-
 
   }
 

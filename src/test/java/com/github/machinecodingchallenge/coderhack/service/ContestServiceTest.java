@@ -19,13 +19,8 @@ import java.util.*;
 public class ContestServiceTest {
 
     private IContestRepository iContestRepository;
-    public void setup(){
-        // Repository instance
-        // contest sService instance
-
-    }
-
-    // Throw Invalid Input Exception
+   
+    
     @Test
     @DisplayName("Register user with an invalid user id")
     public void registerUserWithInvalidUserid(){
